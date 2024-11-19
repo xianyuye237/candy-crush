@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candy Crush</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .game-font {
+        font-family: "Fredoka One", cursive;
+      }
+      .candy {
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-pink-100 to-purple-200 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+      <h1
+        class="text-center game-font text-5xl mb-8 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600"
+      >
+        Candy Crush
+      </h1>
+
+      <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+        <!-- Game Board -->
+        <div class="bg-white p-4 rounded-2xl shadow-xl">
+          <canvas id="gameBoard" class="rounded-xl"></canvas>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="bg-white p-6 rounded-2xl shadow-xl space-y-6 min-w-[300px]">
+          <!-- Score -->
+          <div
+            class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 rounded-xl"
+          >
+            <p class="text-gray-600 text-sm mb-1">SCORE</p>
+            <p id="score" class="game-font text-4xl text-pink-500">0</p>
+          </div>
+
+          <!-- Level Info -->
+          <div class="flex gap-4">
+            <div
+              class="flex-1 bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-xl"
+            >
+              <p class="text-gray-600 text-sm mb-1">LEVEL</p>
+              <p id="level" class="game-font text-2xl text-purple-500">1</p>
+            </div>
+            <div
+              class="flex-1 bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-xl"
+            >
+              <p class="text-gray-600 text-sm mb-1">MOVES</p>
+              <p id="moves" class="game-font text-2xl text-purple-500">30</p>
+            </div>
+          </div>
+
+          <!-- Target -->
+          <div
+            class="bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-xl"
+          >
+            <p class="text-gray-600 text-sm mb-2">TARGET SCORE</p>
+            <p id="target" class="game-font text-2xl text-purple-500">1000</p>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+              <div
+                id="progress"
+                class="bg-gradient-to-r from-pink-500 to-purple-500 h-2.5 rounded-full"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <button
+            onclick="startGame()"
+            class="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white game-font py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
+          >
+            Start Game
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Complete Modal -->
+    <div
+      id="levelComplete"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
+      <div
+        class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4 transform transition-all"
+      >
+        <h2 class="game-font text-3xl text-center mb-6 text-purple-500">
+          LEVEL COMPLETE!
+        </h2>
+        <div
+          class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 rounded-xl mb-6"
+        >
+          <p class="text-gray-600 text-sm mb-1">FINAL SCORE</p>
+          <p id="finalScore" class="game-font text-4xl text-pink-500">0</p>
+        </div>
+        <button
+          onclick="nextLevel()"
+          class="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white game-font py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
+        >
+          Next Level
+        </button>
+      </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div
+      id="gameOver"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
+      <div
+        class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4 transform transition-all"
+      >
+        <h2 class="game-font text-3xl text-center mb-6 text-red-500">
+          GAME OVER
+        </h2>
+        <div
+          class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 rounded-xl mb-6"
+        >
+          <p class="text-gray-600 text-sm mb-1">FINAL SCORE</p>
+          <p id="gameOverScore" class="game-font text-4xl text-pink-500">0</p>
+        </div>
+        <button
+          onclick="startGame()"
+          class="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white game-font py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105"
+        >
+          Try Again
+        </button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
